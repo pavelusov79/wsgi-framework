@@ -1,40 +1,5 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Контакты</title>
-	<link rel="stylesheet" href="../static/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Kalam|Lato:400,700|Lobster|Muli:400,700,700i|Red+Hat+Display:400,700,700i&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-	<script src="../static/script.js" defer></script>
-</head>
-<body>
-	<header>
-		<div class="head-cont">
-			<div class="logo">
-				<img src="../static/img/logo_green.png" alt="logo">
-				<!-- <p class="header_name">Cалон красоты "Beauty Style"</p>
-				<div class="logo">
-					<p><strong>"Style is an easy way to talk about complex things."</strong></p>
-					<p>Jean Cocteau</p>
-				</div> -->
-			</div>
-			<div class="contacts">
-				<p>ПН-ВС: 10.00-20.00</p>
-				<p>+7(951)012-48-52</p>
-				<p><a href="https://api.whatsapp.com/send?phone=79510124852">WhatsApp</a></p>
-				<p id="btn"><a href="contacts.html" title="нажмите чтобы записаться">Запись</a></p>
-			</div>
-		</div>
-		<nav>
-			<a href="/">Главная</a>
-			<a href="/services/">Наши услуги</a>
-			<a href="/portfolio/">Портфолио</a>
-			<a class="select" href="/contacts/">Контакты</a>
-		</nav>
-		<div class="burger"></div>
-	</header>
+{% extends 'base.html' %}
+{% block content %}
 	<div class="text">
 		<h3>Записаться на услуги салона вы можете заполнив форму ниже или позвонив нашим мастерам:</h3>
 		<p><strong>Оксана +7(951)012-48-52 </strong>(<a href="https://api.whatsapp.com/send?phone=79510124852">отправить WhatsApp</a>) - стрижки, окрашивание, мелирование и лечение волос, перманентный макияж</p>
@@ -49,31 +14,31 @@
             <p>Услуги</p>
         	<select name="servise" id="servise" required>
         		<option value="">Выберите услугу</option>
-        		<option value="female">Стрижка женская</option>
-        		<option value="uklad">Укладка</option>
-        		<option value="laminir">Ламинирование</option>
-        		<option value="color">Окраска</option>
-        		<option value="treatment">Лечение, биоинкрустация</option>
-        		<option value="male">Стрижка мужская</option>
-        		<option value="child">Стрижка детская</option>
-        		<option value="makeup">Перманентный макияж</option>
-        		<option value="lash">Наращивание ресниц</option>
+        		<option value="Стрижка женская">Стрижка женская</option>
+        		<option value="Укладка">Укладка</option>
+        		<option value="Ламинирование">Ламинирование</option>
+        		<option value="Окраска">Окраска</option>
+        		<option value="Лечение, биоинкрустация">Лечение, биоинкрустация</option>
+        		<option value="Стрижка мужская">Стрижка мужская</option>
+        		<option value="Стрижка детская">Стрижка детская</option>
+        		<option value="Перманентный макияж">Перманентный макияж</option>
+        		<option value="Наращивание ресниц">Наращивание ресниц</option>
         	</select>
             <p>Дата, время</p>
             <input type="date" name="date" required="required"><br>
             <select class="time" name="time" id="time" required="required">
             	<option value="">Выберите время</option>
-            	<option value="">9:00</option>
-            	<option value="">10:00</option>
-            	<option value="">11:00</option>
-            	<option value="">12:00</option>
-            	<option value="">13:00</option>
-            	<option value="">14:00</option>
-            	<option value="">15:00</option>
-            	<option value="">16:00</option>
-            	<option value="">17:00</option>
-            	<option value="">18:00</option>
-            	<option value="">19:00</option>
+            	<option value="9:00">9:00</option>
+            	<option value="10:00">10:00</option>
+            	<option value="11:00">11:00</option>
+            	<option value="12:00">12:00</option>
+            	<option value="13:00">13:00</option>
+            	<option value="14:00">14:00</option>
+            	<option value="15:00">15:00</option>
+            	<option value="16:00">16:00</option>
+            	<option value="17:00">17:00</option>
+            	<option value="18:00">18:00</option>
+            	<option value="19:00">19:00</option>
             </select><br>
             <input type="submit" class="btn" value="отправить">
 	   	</form>
@@ -82,39 +47,4 @@
 			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2903.827287109343!2d132.06092421540058!3d43.296938483412646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb3bc9f77fcf35d%3A0x6cbdef3410a5694f!2sUlitsa+Lermontova%2C+85%D0%B2%2C+Vladivostok%2C+Primorskiy+kray%2C+690912!5e0!3m2!1sen!2sru!4v1565586539849!5m2!1sen!2sru" width="450" height="280" frameborder="0" style="border:0" allowfullscreen></iframe>
 		</div>
 	</div>
-	<footer>
-		<div class="copyright">
-			<p><a href="mailto:usov.p@mail.ru" title="нажмите, чтобы отправить письмо">© Designed by Usov Pavel 2020</a></p>
-		</div>
-		<div class="footer_menu">
-			<p>
-				<a href="index.html">Главная |</a>
-				<a href="price.html">Наши услуги |</a>
-				<a href="portfolio.html">Портфолио |</a> 
-				<a class="select" href="contacts.html">Контакты</a> 
-			</p>
-			<div class="header_social">
-				<div>
-					<a href="https://facebook.com"><img src="../static/img/facebook-white.png" alt="facebook"></a>
-				</div>
-				<div>
-					<a href="https.twitter.com"><img src="../static/img/twitter-white.png" alt="twitter"></a>
-				</div>
-				<div>
-					<a href="https://www.rss.ru"><img src="../static/img/rss-white.png" alt="rss"></a>
-				</div>
-				<div>
-					<a href="https://vk.com"><img src="../static/img/vk-white.png" alt="vk"></a>
-				</div>
-			</div>
-		</div>
-		<div class="addr">
-			<p id="phone">+7(951)012-48-52</p>
-			<p>г.Владивосток, ул.Лермонтова 85в</p>
-			<p>Часы работы: 10.00-20.00</p>
-			<p><a href="contacts.html">oksy77720@gmail.com</a></p>
-		</div>
-	</footer>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

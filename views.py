@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from core.templates import render
@@ -6,16 +7,6 @@ from core.templates import render
 class Main:
 
     def __call__(self, request):
-        data_list = [
-          {"service": "Стрижка женская", "price": "900", "img": "/static/img/female1.png"},
-          {"service": "Укладка", "price": "1000", "img": "/static/img/ukladka2.png"},
-          {"service": "Окраска любой сложности", "price": "1500", "img": "/static/img/okras1.png"},
-          {"service": "Лечение, биоинкрустация волос, ламинирование", "price": "1200", "img": "/static/img/laminir1.png"},
-          {"service": "Мужские стрижки", "price": "600", "img": "/static/img/male1.png"},
-          {"service": "Детские стрижки", "price": "400", "img": "/static/img/child1.png"},
-          {"service": "Услуги лешмейкера", "price": "1800", "img": "/static/img/lesh1.png"},
-          {"service": "Услуги перманентного макияжа", "price": "2000", "img": "/static/img/tat1.png"}
-        ]
         secret = request.get('secret_key', None)
         return '200 OK', render('index.html', secret=secret)
 
@@ -40,6 +31,19 @@ class Portfolio:
 class Contact:
 
     def __call__(self, request):
+        if request['method'] == 'POST':
+            data = request['data']
+            name = data['name']
+            tel = data['tel']
+            service = data['servise']
+            date = data['date']
+            time = data['time']
+            # print(f'Нам пришла заявка от {name}, конт. тел: {tel}\nзапись на услугу: '
+            #       f' {service}\nдата: {date}, время: {time}')
+            with open("static/data_from_post.txt", 'a') as f:
+                f.write(f'{datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")} заявка от'
+                        f' {name}, конт. тел: {tel}\nзапись на услугу: '
+                        f'{service}\nдата: {date}, время: {time}\n\n')
         secret = request.get('secret_key', None)
         return '200 OK', render('contacts.html', secret=secret)
 
