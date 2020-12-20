@@ -2,13 +2,77 @@ import datetime
 import json
 
 from core.templates import render
+from models import TrainingSite
+from loggin_mod import debug, Logger
+
+
+site = TrainingSite()
+logger = Logger('main')
 
 
 class Main:
 
     def __call__(self, request):
+        logger.log('Список курсов')
         secret = request.get('secret_key', None)
-        return '200 OK', render('index.html', secret=secret)
+        categories = site.categories
+        return '200 OK', render('index.html', objects_list=site.courses, categories=categories)
+
+
+@debug
+class CreateCourse:
+
+    def __call__(self, request):
+        if request['method'] == 'POST':
+            data = request['data']
+            name = data['name']
+            category_id = data.get('category_id')
+            print(category_id)
+            category = None
+            if category_id:
+                category = site.find_category_by_id(int(category_id))
+                course = site.create_course('record', name, category)
+                site.courses.append(course)
+            # редирект?
+            # return '302 Moved Temporarily', render('create_course.html')
+            # Для начала можно без него
+            return '200 OK', render('create_course.html')
+        else:
+            categories = site.categories
+            return '200 OK', render('create_course.html', categories=categories)
+
+
+@debug
+class CreateCategory:
+
+    def __call__(self, request):
+        if request['method'] == 'POST':
+            data = request['data']
+            name = data['name']
+            category_id = data.get('category_id')
+
+            category = None
+            if category_id:
+                category = site.find_category_by_id(int(category_id))
+
+            new_category = site.create_category(name, category)
+            site.categories.append(new_category)
+            # редирект?
+            # return '302 Moved Temporarily', render('create_course.html')
+            # Для начала можно без него
+            return '200 OK', render('create_category.html')
+        else:
+            categories = site.categories
+            return '200 OK', render('create_category.html', categories=categories)
+
+
+@debug
+class CategoryList:
+
+    def __call__(self, request):
+        logger.log('Список категорий')
+        secret = request.get('secret_key', None)
+        return '200 OK', render('category_list.html', objects_list=site.categories)
 
 
 class Services:
