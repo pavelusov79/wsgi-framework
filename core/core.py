@@ -1,11 +1,20 @@
 import chardet
+import urllib.parse
 
 
 class Application:
 
+    def add_route(self, url):
+        # паттерн декоратор
+        def inner(view):
+            self.route[url] = view
+
+        return inner
+
     def parse_input_data(self, data: str):
         result = {}
         if data:
+            data = urllib.parse.unquote_plus(data)
             params = data.split('&')
             for item in params:
                 k, v = item.split('=')
@@ -70,3 +79,34 @@ class Application:
             start_response('404 NOT FOUND', [('Content-Type', 'text/html')])
             return [b"Not Found"]
 
+
+class DebugApplication(Application):
+
+    def __init__(self, urlpatterns, front_controllers):
+        self.application = Application(urlpatterns, front_controllers)
+        super().__init__(urlpatterns, front_controllers)
+
+    def __call__(self, env, start_response):
+        print('DEBUG MODE')
+        print(env)
+        return self.application(env, start_response)
+        # super().__call__(env, start_response)
+    #
+    # def add_route(self, url):
+    #     def inner(view):
+    #         self.urlpatterns[url] = view
+    #         self.application.urlpatterns[url] = view
+    #
+    #     return inner
+
+
+class MockApplication(Application):
+
+    def __init__(self, urlpatterns, front_controllers):
+        self.application = Application(urlpatterns, front_controllers)
+        super().__init__(urlpatterns, front_controllers)
+
+    def __call__(self, env, start_response):
+        # start_response('200 OK', [('Content-Type', 'text/html')])
+        # return [b'Hello from Mock']
+        return self.application(env, start_response)

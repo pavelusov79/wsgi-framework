@@ -3,17 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Главная</title>
-	<link rel="stylesheet" href="..{{static}}style.css">
+	<title>{% block title %}Главная{% endblock %}</title>
+	<link rel="stylesheet" href="/static/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Kalam|Lato:400,700|Lobster|Muli:400,700,700i|Red+Hat+Display:400,700,700i&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-	<script src="../static/script.js" defer></script>
+	<script src="/static/script.js" defer></script>
 </head>
 <body>
 	<header>
 		<div class="head-cont">
 			<div class="logo">
-				<img src="../static/img/logo_green.png" alt="logo">
+				<img src="/static/img/logo_green.png" alt="logo">
 			</div>
 			<div class="contacts">
 				<p>ПН-ВС: 10.00-20.00</p>
@@ -23,9 +23,10 @@
 			</div>
 		</div>
 		<nav>
-			<a class="select" href="/">Главная</a>
-			<a href="/services/">Наши услуги</a>
-			<a href="/portfolio/">Портфолио</a>
+			<a class="select" href="/">Список курсов</a>
+			<a href="/category-list/">Список категорий</a>
+			<a href="/create-course/">Создать курс</a>
+			<a href="/create-category/">Создать категорию</a>
 			<a href="/contacts/">Контакты</a>
 		</nav>
 		<div class="burger"></div>

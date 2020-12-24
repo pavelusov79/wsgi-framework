@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+Список курсов
+{% endblock %}
+{% block content %}
+<h1>Список категорий</h1>
+<ul>
+
+    {% for item in objects_list %}
+    <li>
+        {{item.name}} Количество курсов: <a href="/">{{item.course_count()}}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
