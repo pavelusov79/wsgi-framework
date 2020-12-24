@@ -23,3 +23,13 @@ def debug(func):
         return result
 
     return inner
+
+
+def fake(func):
+    def inner(*args, **kwargs):
+        print('Hello from fake')
+        result = func(*args, **kwargs)
+
+        return result
+
+    return inner

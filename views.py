@@ -2,14 +2,15 @@ import datetime
 import json
 
 from core.templates import render
+# from main import application
 from models import TrainingSite
-from loggin_mod import debug, Logger
+from loggin_mod import debug, Logger, fake
 
 
 site = TrainingSite()
 logger = Logger('main')
 
-
+@fake
 class Main:
 
     def __call__(self, request):
@@ -92,6 +93,7 @@ class Portfolio:
         return '200 OK', render('portfolio.html', secret=secret)
 
 
+# @application.add_route('/contacts/')
 class Contact:
 
     def __call__(self, request):

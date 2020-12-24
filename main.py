@@ -6,7 +6,7 @@ route = {
     '/': views.Main(),
     '/services/': views.Services(),
     '/portfolio/': views.Portfolio(),
-    '/contacts/': views.Contact(),
+    # '/contacts/': views.Contact(),
     '/create-course/': views.CreateCourse(),
     '/create-category/': views.CreateCategory(),
     '/category-list/': views.CategoryList()

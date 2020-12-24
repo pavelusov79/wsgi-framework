@@ -6,11 +6,11 @@
 <h1>Создание категории</h1>
 <form method="post">
     <input type="text" name="name" placeholder="Название">
-    <!--<select name="category_id">
+    <select name="category_id">
         {% for item in categories %}
         <option value="{{item.id}}">{{item.name}}</option>
         {% endfor %}
-    </select>-->
+    </select>
     <button type="submit">Сохранить</button>
 </form>
 {% endblock %}

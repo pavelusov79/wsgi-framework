@@ -4,6 +4,13 @@ import urllib.parse
 
 class Application:
 
+    def add_route(self, url):
+        # паттерн декоратор
+        def inner(view):
+            self.route[url] = view
+
+        return inner
+
     def parse_input_data(self, data: str):
         result = {}
         if data:
