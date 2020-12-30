@@ -3,12 +3,16 @@ import json
 
 from core.templates import render
 # from main import application
-from models import TrainingSite
+from models import TrainingSite, BaseSerializer, EmailNotifier, SmsNotifier
 from loggin_mod import debug, Logger, fake
+from core.cbv import CreateView, ListView
 
 
 site = TrainingSite()
 logger = Logger('main')
+email_notifier = EmailNotifier()
+sms_notifier = SmsNotifier()
+
 
 @fake
 class Main:
@@ -114,4 +118,32 @@ class Contact:
         return '200 OK', render('contacts.html', secret=secret)
 
 
+class StudentListView(ListView):
+    queryset = site.students
+    template_name = 'student_list.html'
 
+
+class StudentCreateView(CreateView):
+    template_name = 'create_student.html'
+
+    def create_obj(self, data: dict):
+        name = data['name']
+        new_obj = site.create_user('student', name)
+        site.students.append(new_obj)
+
+
+class AddStudentByCourseCreateView(CreateView):
+    template_name = 'add_student.html'
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['courses'] = site.courses
+        context['students'] = site.students
+        return context
+
+    def create_obj(self, data: dict):
+        course_name = data['course_name']
+        course = site.get_course(course_name)
+        student_name = data['student_name']
+        student = site.get_student(student_name)
+        course.add_student(student)
