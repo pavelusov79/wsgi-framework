@@ -6,12 +6,15 @@ from core.templates import render
 from models import TrainingSite, BaseSerializer, EmailNotifier, SmsNotifier
 from loggin_mod import debug, Logger, fake
 from core.cbv import CreateView, ListView
-
+from orm.unitofwork import UnitOfWork
+from mappers import MapperRegistry
 
 site = TrainingSite()
 logger = Logger('main')
 email_notifier = EmailNotifier()
 sms_notifier = SmsNotifier()
+UnitOfWork.new_current()
+UnitOfWork.get_current().set_mapper_registry(MapperRegistry)
 
 
 @fake
@@ -119,8 +122,12 @@ class Contact:
 
 
 class StudentListView(ListView):
-    queryset = site.students
+    # queryset = site.students
     template_name = 'student_list.html'
+
+    def get_queryset(self):
+        mapper = MapperRegistry.get_current_mapper('student')
+        return mapper.all()
 
 
 class StudentCreateView(CreateView):
@@ -130,6 +137,8 @@ class StudentCreateView(CreateView):
         name = data['name']
         new_obj = site.create_user('student', name)
         site.students.append(new_obj)
+        new_obj.mark_new()
+        UnitOfWork.get_current().commit()
 
 
 class AddStudentByCourseCreateView(CreateView):
@@ -147,3 +156,9 @@ class AddStudentByCourseCreateView(CreateView):
         student_name = data['student_name']
         student = site.get_student(student_name)
         course.add_student(student)
+
+
+class CourseApi:
+
+    def __call__(self, request):
+        return '200 OK', BaseSerializer(site.courses).save()
