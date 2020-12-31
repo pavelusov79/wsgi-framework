@@ -1,6 +1,8 @@
+import jsonpickle
+
 from reusepatterns.prototypes import PrototypeMixin
 from reusepatterns.observer import Subject, Observer
-import jsonpickle
+from orm.unitofwork import DomainObject
 
 
 class User:
@@ -13,7 +15,7 @@ class Teacher(User):
     pass
 
 
-class Student(User):
+class Student(User, DomainObject):
 
     def __init__(self, name):
         self.courses = []

@@ -1,6 +1,6 @@
 import views
 
-from core.core import MockApplication, Application
+from core.core import Application
 
 route = {
     '/': views.Main(),
@@ -13,6 +13,7 @@ route = {
     '/student_list/': views.StudentListView(),
     '/create_student/': views.StudentCreateView(),
     '/add_student/': views.AddStudentByCourseCreateView(),
+    '/api/': views.CourseApi()
 }
 
 
