@@ -6,7 +6,7 @@ from core.templates import render
 from models import TrainingSite, BaseSerializer, EmailNotifier, SmsNotifier
 from loggin_mod import debug, Logger, fake
 from core.cbv import CreateView, ListView
-from orm.unitofwork import UnitOfWork
+from orm.unitofwork import UnitOfWork, DomainObject
 from mappers import MapperRegistry
 
 site = TrainingSite()
@@ -65,6 +65,8 @@ class CreateCategory:
 
             new_category = site.create_category(name, category)
             site.categories.append(new_category)
+            new_category.mark_new()
+            UnitOfWork.get_current().commit()
             # редирект?
             # return '302 Moved Temporarily', render('create_course.html')
             # Для начала можно без него
@@ -80,7 +82,8 @@ class CategoryList:
     def __call__(self, request):
         logger.log('Список категорий')
         secret = request.get('secret_key', None)
-        return '200 OK', render('category_list.html', objects_list=site.categories)
+        mapper = MapperRegistry.get_current_mapper('category')
+        return '200 OK', render('category_list.html', objects_list=mapper.all())
 
 
 class Services:

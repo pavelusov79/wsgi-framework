@@ -39,7 +39,7 @@ class UserFactory:
         return cls.types[type_](name)
 
 
-class Category:
+class Category(DomainObject):
     # реестр?
     auto_id = 0
 
